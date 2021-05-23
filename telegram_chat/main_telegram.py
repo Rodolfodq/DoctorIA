@@ -1,19 +1,27 @@
 import telepot
-from handle_msg import handle
 from telepot.loop import MessageLoop
 from time import sleep
-import os
+import conversation
+from secrets_token import api_token
 
-os.system("cls")
 
-with open("secrets\\api_token.txt", 'r', encoding='utf-8') as token:
-    api_token = token.readline()
+bot = telepot.Bot(api_token.token)
 
-   
-bot = telepot.Bot(api_token)
-MessageLoop(bot, handle).run_as_thread()
-print("Bot iniciado com sucesso!")
+def start_bot():
+    bot = telepot.Bot(api_token.token)
+    MessageLoop(bot, handle).run_as_thread()
+    print("Bot iniciado com sucesso!")
 
-print ('Listening....')
-while 1:
-    sleep(10)
+    print ('Listening....')
+    while 1:
+        sleep(10)
+
+def handle(msg):
+    try:        
+        message = msg['text']
+        id_user = msg['chat']['id']        
+        response = conversation.main_conversation.start_conversation(message)
+        print(response)    
+        bot.sendMessage(id_user, str(response))
+    except:
+        print('Algo deu errado!')
