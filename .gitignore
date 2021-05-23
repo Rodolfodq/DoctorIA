@@ -9,6 +9,14 @@ __pycache__/
 #secrets
 secrets
 
+#log
+conversation/db.sqlite3
+conversation/sentence_tokenizer.pickle
+
+db.sqlite3
+sentence_tokenizer.pickle
+
+
 # Distribution / packaging
 .Python
 build/
